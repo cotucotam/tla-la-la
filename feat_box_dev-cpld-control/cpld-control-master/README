@@ -1,0 +1,19 @@
+CPLD control tool
+=================
+
+This tool is meant for operating the CPLD present on either ULCB or Stout
+boards. The tool allows accessing the CPLD registers via the USB-serial
+port on the board.
+
+To compile the tool, use "make".
+
+To use the tool, see help first:
+
+    CPLD control
+    cpld-control [-h] ............................... Print this help.
+    cpld-control -l ................................. List available devices.
+    cpld-control -d <FTDI iSerial> .................. Dump CPLD registers.
+    cpld-control -w <FTDI iSerial> [<reg> <val>]* ... Write CPLD register(s).
+        *One or more [<reg> <val>] pairs can be specified.
+
+Then either dump CPLD registers with -d or write CPLD registers with -w .

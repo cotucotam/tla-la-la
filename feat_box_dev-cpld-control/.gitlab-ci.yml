@@ -1,0 +1,52 @@
+# Build script for cpld-control Linux tool
+
+stages:
+    - build
+    - test
+
+cpld-control Build:
+    stage: build
+    only:
+     - merge_requests
+     - web
+    artifacts:
+        paths:
+            - cpld-control/source/cpld-control
+        expire_in: 1 weeks
+    tags:
+        - cpld_linux_build
+    script:
+        - cd cpld-control/source
+        - make clean
+        - make -j8
+        - echo "******* Complete cpld-control build ********"
+
+cpld-control Static Build:
+    stage: build
+    only:
+     - merge_requests
+     - web
+    artifacts:
+        paths:
+            - cpld-control/source/cpld-control
+        expire_in: 1 weeks
+    tags:
+        - cpld_linux_build
+    script:
+        - cd cpld-control/source
+        - make clean
+        - make static -j8
+        - echo "******* Complete cpld-control static build ********"
+
+cpld-control Functional Test - help:
+    stage: test
+    only:
+     - merge_requests
+     - web
+    tags:
+     - cpld_linux_test
+    script:
+        - chmod +x ./cpld-control/source/cpld-control
+        - ./cpld-control/source/cpld-control -h
+    dependencies:
+        - cpld-control Build
